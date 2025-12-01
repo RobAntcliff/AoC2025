@@ -13,24 +13,8 @@ public class Day1Part2
 
         foreach (string line in File.ReadLines(inputPath))
         {
-            var isRight = true;
-            var numberString = "";
-            foreach (char c in line)
-            {
-                if (c == 'L')
-                {
-                    isRight = false;
-                }
-                else if (c == 'R')
-                {
-                    //Do nothing
-                }
-                else
-                {
-                    //We have a number
-                    numberString += c;
-                }
-            }
+            var isRight = line[0] == 'R';
+            var numberString = line.Substring(1);
 
             if (numberString.Length > 0)
             {
@@ -41,9 +25,9 @@ public class Day1Part2
                 if (!isRight)
                 {
                     number = Day1Part1.leftAsRight(number);
-                    if (((startingNumber + number) % 100) > startingNumber && startingNumber != 0) result++;
-                    startingNumber = (startingNumber + number) % 100;
-                    if (startingNumber == 0) result++;
+                    var newStartingNumber = ((startingNumber + number) % 100);
+                    if (newStartingNumber == 0 || (newStartingNumber > startingNumber && startingNumber != 0)) result++;
+                    startingNumber = newStartingNumber;
                 }
                 else
                 {
