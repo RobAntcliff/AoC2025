@@ -116,8 +116,6 @@ public class Day2Part1
         return result;
     }
 
-    public static 
-
     public static List<long> GeneratePermutations(List<HashSet<int>> sets)
     {
         var results = new List<long>();
