@@ -8,53 +8,32 @@ public class Day3Part1
     public static void Run()
     {
         string inputPath = Path.Combine("day3", "input");
-        long result = 0;
+        long part1Result = 0;
+        long part2Result = 0;
 
         foreach (string line in File.ReadLines(inputPath))
         {
             Console.WriteLine(line);
-            //var number = getLargestJoltage(line);
-            var number = getLargestJoltagePart2(line);
-            Console.WriteLine($"Highest Number is {number}");
-            result += number;
+            var part1number = getLargestJoltage(line, 2);
+            var part2number = getLargestJoltage(line, 12);
+            part1Result += part1number;
+            part2Result += part2number;
         }
 
-        Console.WriteLine(result);
+        Console.WriteLine($"Part 1 result is {part1Result}");
+        Console.WriteLine($"Part 2 result is {part2Result}");
     }
 
-    public static long getLargestJoltage(string line){
-        var largestNumber = -1;
-        var nextLargestNumber = -1;
-        var prevLargestNumber = -1;
-
-        foreach(char c in line){
-            var digit = (int) Char.GetNumericValue(c);
-
-            if(digit > largestNumber){
-                prevLargestNumber = largestNumber;
-                largestNumber = digit;
-                nextLargestNumber = -1;
-            } else if (digit > nextLargestNumber){
-                nextLargestNumber = digit;
-            }
-        }
-
-        if(nextLargestNumber == -1){
-            return (prevLargestNumber * 10) + largestNumber;
-        } else {
-            return (largestNumber * 10) + nextLargestNumber;
-        }
-    }
-
-    public static long getLargestJoltagePart2(string line){
-        int[] joltageArray = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+    public static long getLargestJoltage(string line, int numberOfDigits){
+        int[] joltageArray = new int[numberOfDigits];
+        Array.Fill(joltageArray, -1);
 
         for(int i = 0; i < line.Length; i++){
-            var index = i + 12 >= line.Length ? 12 - (line.Length - i) : 0;
-            Console.WriteLine($"The Index is {index}");
+            var index = i + numberOfDigits >= line.Length ? numberOfDigits - (line.Length - i) : 0;
+            //Console.WriteLine($"The Index is {index}");
             var digit = (int) Char.GetNumericValue(line[i]);
             bool largerDigitFound = false;
-            for(int j = index; j < 12; j++){
+            for(int j = index; j < numberOfDigits; j++){
                 if(largerDigitFound){
                     joltageArray[j] = -1;
                 }else if(digit > joltageArray[j]){
@@ -63,7 +42,7 @@ public class Day3Part1
                 }
             }
 
-            Console.WriteLine($"[{string.Join(", ", joltageArray)}]");
+            //Console.WriteLine($"[{string.Join(", ", joltageArray)}]");
         }
 
         long result = 0;
