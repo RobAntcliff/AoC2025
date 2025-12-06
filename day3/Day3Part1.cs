@@ -24,19 +24,25 @@ public class Day3Part1
         Console.WriteLine($"Part 2 result is {part2Result}");
     }
 
-    public static long getLargestJoltage(string line, int numberOfDigits){
+    public static long getLargestJoltage(string line, int numberOfDigits)
+    {
         int[] joltageArray = new int[numberOfDigits];
         Array.Fill(joltageArray, -1);
 
-        for(int i = 0; i < line.Length; i++){
+        for (int i = 0; i < line.Length; i++)
+        {
             var index = i + numberOfDigits >= line.Length ? numberOfDigits - (line.Length - i) : 0;
             //Console.WriteLine($"The Index is {index}");
-            var digit = (int) Char.GetNumericValue(line[i]);
+            var digit = (int)Char.GetNumericValue(line[i]);
             bool largerDigitFound = false;
-            for(int j = index; j < numberOfDigits; j++){
-                if(largerDigitFound){
+            for (int j = index; j < numberOfDigits; j++)
+            {
+                if (largerDigitFound)
+                {
                     joltageArray[j] = -1;
-                }else if(digit > joltageArray[j]){
+                }
+                else if (digit > joltageArray[j])
+                {
                     joltageArray[j] = digit;
                     largerDigitFound = true;
                 }
@@ -46,8 +52,9 @@ public class Day3Part1
         }
 
         long result = 0;
-        for(int k = 0; k < joltageArray.Length; k++){
-            result += joltageArray[k] * (long) Math.Pow(10, joltageArray.Length - k);
+        for (int k = 0; k < joltageArray.Length; k++)
+        {
+            result += joltageArray[k] * (long)Math.Pow(10, joltageArray.Length - k);
         }
 
         return result / 10;

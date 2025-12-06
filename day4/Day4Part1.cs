@@ -23,15 +23,21 @@ public class Day4Part1
         Console.WriteLine("Part 2 Result: " + part2Result);
     }
 
-    public static int part1(List<string> map, bool removeRolls = false){
+    public static int part1(List<string> map, bool removeRolls = false)
+    {
         int result = 0;
-        for(int y = 0; y < map.Count; y++){
-            for(int x = 0; x < map.Count; x++){
+        for (int y = 0; y < map.Count; y++)
+        {
+            for (int x = 0; x < map.Count; x++)
+            {
                 char currentChar = map[y][x];
-                if(currentChar == '@'){
-                    if(isValidRollOfPaper(x, y, map)){
+                if (currentChar == '@')
+                {
+                    if (isValidRollOfPaper(x, y, map))
+                    {
                         result++;
-                        if(removeRolls) {
+                        if (removeRolls)
+                        {
                             char[] row = map[y].ToCharArray();
                             row[x] = '.';
                             map[y] = new string(row);
@@ -43,10 +49,12 @@ public class Day4Part1
         return result;
     }
 
-    public static int part2(List<string> map){
+    public static int part2(List<string> map)
+    {
         int result = 0;
         var foundRolls = 1;
-        while(foundRolls > 0){
+        while (foundRolls > 0)
+        {
             foundRolls = part1(map, true);
             result += foundRolls;
         }
@@ -69,10 +77,12 @@ public class Day4Part1
         (North.Item1 + West.Item1, North.Item2 + West.Item2)   // Northwest
     };
 
-    public static bool isValidRollOfPaper(int x, int y, List<string> map){
+    public static bool isValidRollOfPaper(int x, int y, List<string> map)
+    {
         int numberOfRolls = 0;
-        foreach((int, int) direction in Directions){
-            try { if(map[y + direction.Item2][x + direction.Item1] == '@') numberOfRolls++; }
+        foreach ((int, int) direction in Directions)
+        {
+            try { if (map[y + direction.Item2][x + direction.Item1] == '@') numberOfRolls++; }
             catch (Exception) { } // This catches out of boubds errors instead of having to actually deal with them :) 
         }
         return numberOfRolls < 4;
