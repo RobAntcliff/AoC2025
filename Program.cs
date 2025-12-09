@@ -5,6 +5,7 @@ using AoC2025.day4;
 using AoC2025.day5;
 using AoC2025.day6;
 using AoC2025.day7;
+using AoC2025.day8;
 
 // Day1Part1.Run();
 // Day1Part2.Run();
@@ -19,4 +20,6 @@ using AoC2025.day7;
 
 //Day6.Run();
 
-Day7.Run();
+//Day7.Run();
+
+Day8.Run();
